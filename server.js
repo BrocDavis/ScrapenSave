@@ -9,13 +9,19 @@ const db = require("./models");
 const PORT = process.env.PORT||3000;
 const app = express();
 
+var exphbs = require("express-handlebars");
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars")
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
 let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI);
-
+app.get("/", function(req,res){
+  res.render("index",{dbArticle: db.Article.find({})});
+});
 app.get("/scrape", function (req, res) {
 
   axios.get("http://www.echojs.com/").then(function (response) {
@@ -44,7 +50,6 @@ app.get("/scrape", function (req, res) {
    res.send("Scrape Complete");
   });
 });
-
 
 app.get("/articles", function (req, res) {
   db.Article.find({})

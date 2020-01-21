@@ -6,7 +6,7 @@ const cheerio = require("cheerio");
 
 const db = require("./models");
 
-const PORT = process.env.PORT||3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 var exphbs = require("express-handlebars");
@@ -18,13 +18,22 @@ app.use(express.json());
 app.use(express.static("public"));
 
 let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.connect(MONGODB_URI);
-app.get("/", function(req,res){
-  db.Article.find({},function(err,article){
-  res.render("index",{articles: article});
-  
-});
-});
+mongoose.set('useUnifiedTopology', true);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+
+
+app.get("/", function (req, res) {
+  db.Article.find({}).lean()
+  .then(function(article) {
+    var hbsObject = {
+      articles: article
+    };
+    console.log(hbsObject);
+    res.render("index", hbsObject);
+  })
+})
+
+
 app.get("/scrape", function (req, res) {
 
   axios.get("http://www.echojs.com/").then(function (response) {
@@ -50,7 +59,7 @@ app.get("/scrape", function (req, res) {
         });
     });
 
-   res.send("Scrape Complete");
+    res.send("Scrape Complete");
   });
 });
 
@@ -84,7 +93,7 @@ app.post("/articles/:id", function (req, res) {
       res.json(dbArticle);
     })
     .catch(function (err) {
-res.json(err);
+      res.json(err);
     });
 });
 

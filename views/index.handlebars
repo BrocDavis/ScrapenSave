@@ -3,15 +3,16 @@
 		<div class="col-md-12 text-center" id="top-bar">
 			<h1> Scraped Articles </h1>
 		</div>
+		{{#each articles}}
 		<div class="col-md-6 text-center" class="task">
 			<div class="row">
-			  {{#each articles}}
 				<div class="col-md-9 text-center">
-					<p>
-                         {{article.title}}
-                         "test"
-					</p>
+					<h1>test</h1>
+					<h1>{{this.title}}</h1>
+					
 				</div>
-			  {{/each}}
 			</div>
 		</div>
+		{{/each}}
+	</div>
+</div>

@@ -33,22 +33,29 @@ app.get("/", function (req, res) {
   })
 })
 
-
 app.get("/scrape", function (req, res) {
 
-  axios.get("http://www.echojs.com/").then(function (response) {
+  axios.get("https://www.factcheck.org/").then(function (response) {
 
     let $ = cheerio.load(response.data);
 
-    $("article h2").each(function (i, element) {
-      let result = {};
+    $("article").each(function (i, element) {
+      const result = {};
 
       result.title = $(this)
+        .children("h3")
         .children("a")
         .text();
       result.link = $(this)
+        .children("h3")
         .children("a")
         .attr("href");
+      result.summary = $(this)
+        .children("div")
+        .children("div")
+        .children("div")
+        .children("p")
+        .text();
 
       db.Article.create(result)
         .then(function (dbArticle) {

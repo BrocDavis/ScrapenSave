@@ -4,15 +4,16 @@
 			<h1> Scraped Articles </h1>
 		</div>
 		{{#each articles}}
-		<div class="col-md-6 text-center" class="task">
-			<div class="row">
-				<div class="col-md-9 text-center">
-					<h1>test</h1>
-					<h1>{{this.title}}</h1>
-					
-				</div>
-			</div>
+		<div class="card">
+		<div class="col-12">
+			<h1>{{this.title}}</h1>
+			<h4><a href="{{this.link}}">{{this.link}}</a></h4>
+			<button class="note bg-primary text-white">Add Note</button>
+			<button class="note bg-danger text-white">Delete Article</button>
 		</div>
+
+		</div>
+
 		{{/each}}
 	</div>
 </div>

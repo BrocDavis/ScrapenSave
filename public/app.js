@@ -7,8 +7,8 @@ $(document).on("click", "h1", function () {
   })
     .then(function (data) {
       $("#notes").append("<h2>" + data.title + "</h2>");
-      $("#notes").append("<input id='titleinput' name='title' value='Title'>");
-      $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+      $("#notes").append("<input id='titleinput' name='title' value='Title'></br>");
+      $("#notes").append("<textarea id='bodyinput' name='body'></textarea></br>");
       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 
       if (data.note) {

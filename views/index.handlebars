@@ -1,19 +1,18 @@
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 text-center" id="top-bar">
+		<div class="col-md-8 text-center" id="top-bar">
 			<h1> Scraped Articles </h1>
+			<h4> Click on an article title to enter a note for other's to see!</h4>
+		</div>
+		<div class="col-md-4 align-self-end" id="notes">
 		</div>
 		{{#each articles}}
 		<div class="card">
-		<div class="col-12">
-			<h1>{{this.title}}</h1>
-			<h4><a href="{{this.link}}">{{this.link}}</a></h4>
-			<button class="note bg-primary text-white">Add Note</button>
-			<button class="note bg-danger text-white">Delete Article</button>
+			<div class="col-8"  id="articles">
+				<h1 data-id="{{this._id}}">{{this.title}}</h1>
+				<h4><a href="{{this.link}}">{{this.link}}</a></h4>
+			</div>
 		</div>
-
-		</div>
-
 		{{/each}}
 	</div>
 </div>

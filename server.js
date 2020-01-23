@@ -21,17 +21,26 @@ let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-
 app.get("/", function (req, res) {
   db.Article.find({}).lean()
-  .then(function(article) {
-    var hbsObject = {
-      articles: article
-    };
-    console.log(hbsObject);
-    res.render("index", hbsObject);
-  })
+    .then(function (article) {
+      var hbsObject = {
+        articles: article
+      };
+      res.render("index", hbsObject);
+    })
 })
+
+app.get("/saved", function (req, res) {
+  db.Article.find({ saved: true }).lean()
+    .populate("notes")
+    .exec(function (error, articles) {
+      var hbsObject = {
+        article: articles
+      };
+      res.render("saved", hbsObject);
+    });
+});
 
 app.get("/scrape", function (req, res) {
 

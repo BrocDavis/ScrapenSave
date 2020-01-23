@@ -1,15 +1,13 @@
 $(document).on("click", "h1", function () {
   $("#notes").empty();
   let thisId = $(this).attr("data-id");
-  console.log(thisId);
   $.ajax({
     method: "GET",
     url: "/articles/" + thisId
   })
     .then(function (data) {
-      console.log(data);
       $("#notes").append("<h2>" + data.title + "</h2>");
-      $("#notes").append("<input id='titleinput' name='title' >");
+      $("#notes").append("<input id='titleinput' name='title' value='Title'>");
       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 

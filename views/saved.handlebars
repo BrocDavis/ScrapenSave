@@ -9,13 +9,14 @@
         </div>
         <div class="col-md-4" id="notes">
         </div>
-        {{#if articles}}
+        {{#if articles.saved}}
         {{#each articles}}
         <div class="card">
             <div class="col-8" id="articles">
                 <h1 data-id="{{this._id}}">{{this.title}}</h1>
                 <h4><a href="{{this.link}}">{{this.link}}</a></h4>
                 <p>{{this.summary}}</p>
+                <button class="delete-article">Delete article</button>
             </div>
         </div>
         {{/each}}

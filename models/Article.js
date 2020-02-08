@@ -5,7 +5,12 @@ let Schema = mongoose.Schema;
 let ArticleSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    unique: {
+      index: {
+        unique: true,
+      },
+    },
   },
   link: {
     type: String,
@@ -13,7 +18,7 @@ let ArticleSchema = new Schema({
   },
   saved: {
     type: Boolean,
-    default: true
+    default: false
   },
   summary: {
     type: String,
